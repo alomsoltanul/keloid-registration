@@ -19,8 +19,8 @@ function getClient(): Promise<MongoClient> {
     connectTimeoutMS: 10000,
     serverSelectionTimeoutMS: 10000,
     socketTimeoutMS: 45000,
-    maxPoolSize: 10,
-    minPoolSize: 1,
+    maxPoolSize: 1,
+    minPoolSize: 0,
   })
 
   clientPromise = c.connect().then((connected) => {
