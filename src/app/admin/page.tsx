@@ -3,23 +3,23 @@
 import { useState, useEffect, useCallback } from "react"
 
 interface Registration {
-  _id: string
-  firstName: string
-  lastName: string
+  id: number
+  first_name: string
+  last_name: string
   email: string
   institution: string
   country: string
-  dietaryRestrictions: string
-  specialAccommodations: string
-  ticketType: string
-  ticketName: string
+  dietary_restrictions: string
+  special_accommodations: string
+  ticket_type: string
+  ticket_name: string
   quantity: number
   amount: number
   currency: string
-  paypalOrderId: string
-  paypalCaptureId?: string
+  paypal_order_id: string
+  paypal_capture_id?: string
   status: string
-  createdAt: string
+  created_at: string
 }
 
 export default function AdminDashboard() {
@@ -164,23 +164,23 @@ export default function AdminDashboard() {
             </thead>
             <tbody className="divide-y divide-neutral-50">
               {registrations.map((r, i) => (
-                <tr key={r._id} className="transition-colors hover:bg-neutral-50/50">
+                <tr key={r.id} className="transition-colors hover:bg-neutral-50/50">
                   <td className="px-5 py-3.5 text-xs text-neutral-400">{i + 1}</td>
                   <td className="px-5 py-3.5 font-medium text-neutral-900">
-                    {r.firstName} {r.lastName}
+                    {r.first_name} {r.last_name}
                   </td>
                   <td className="px-5 py-3.5 text-neutral-600">{r.email}</td>
                   <td className="px-5 py-3.5 text-neutral-600">{r.institution}</td>
                   <td className="px-5 py-3.5 text-neutral-600">{r.country}</td>
                   <td className="px-5 py-3.5">
                     <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
-                      {r.ticketName}
+                      {r.ticket_name}
                     </span>
                   </td>
                   <td className="px-5 py-3.5 text-neutral-600">{r.quantity}</td>
                   <td className="px-5 py-3.5 font-semibold text-neutral-900">${r.amount?.toLocaleString()}</td>
                   <td className="px-5 py-3.5 text-xs text-neutral-400">
-                    {r.createdAt ? new Date(r.createdAt).toLocaleDateString() : ""}
+                    {r.created_at ? new Date(r.created_at).toLocaleDateString() : ""}
                   </td>
                 </tr>
               ))}

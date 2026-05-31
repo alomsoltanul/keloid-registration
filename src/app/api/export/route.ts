@@ -21,19 +21,19 @@ export async function GET() {
 
     const rows = registrations.map((r, i) => ({
       "#": i + 1,
-      "First Name": r.firstName,
-      "Last Name": r.lastName,
+      "First Name": r.first_name,
+      "Last Name": r.last_name,
       Email: r.email,
       Institution: r.institution,
       Country: r.country,
-      "Ticket Type": r.ticketName,
+      "Ticket Type": r.ticket_name,
       Quantity: r.quantity || 1,
       Amount: r.amount,
       Currency: r.currency,
-      "PayPal Order ID": r.paypalOrderId,
-      "PayPal Capture ID": r.paypalCaptureId || "",
+      "PayPal Order ID": r.paypal_order_id,
+      "PayPal Capture ID": r.paypal_capture_id || "",
       Status: r.status,
-      "Registered At": r.createdAt?.toISOString() || "",
+      "Registered At": r.created_at || "",
     }))
 
     const wb = XLSX.utils.book_new()

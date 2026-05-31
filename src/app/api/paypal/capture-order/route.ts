@@ -24,20 +24,20 @@ export async function POST(req: NextRequest) {
       capture.purchase_units?.[0]?.payments?.captures?.[0]?.amount?.value
 
     await saveRegistration({
-      firstName: registration.firstName,
-      lastName: registration.lastName,
+      first_name: registration.firstName,
+      last_name: registration.lastName,
       email: registration.email,
       institution: registration.institution,
       country: registration.country,
-      dietaryRestrictions: registration.dietaryRestrictions || "",
-      specialAccommodations: registration.specialAccommodations || "",
-      ticketType: registration.ticketType,
-      ticketName: registration.ticketName,
+      dietary_restrictions: registration.dietaryRestrictions || "",
+      special_accommodations: registration.specialAccommodations || "",
+      ticket_type: registration.ticketType,
+      ticket_name: registration.ticketName,
       quantity: registration.quantity || 1,
       amount: parseFloat(capturedAmount) || registration.amount || 0,
       currency: "USD",
-      paypalOrderId: orderId,
-      paypalCaptureId,
+      paypal_order_id: orderId,
+      paypal_capture_id: paypalCaptureId,
       status: "completed",
     })
 
