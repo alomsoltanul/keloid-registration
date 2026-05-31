@@ -11,9 +11,7 @@ declare global {
         onApprove: (data: { orderID: string }) => Promise<void>
         onError?: (err: Error) => void
         onCancel?: () => void
-      }) => {
-        render: (container: HTMLElement) => void
-      }
+      }) => { render: (container: HTMLElement) => void }
     }
   }
 }
@@ -59,12 +57,7 @@ export default function PayPalButton({
 
       window.paypal
         .Buttons({
-          style: {
-            layout: "vertical",
-            color: "gold",
-            shape: "rect",
-            label: "pay",
-          },
+          style: { layout: "vertical", color: "gold", shape: "rect", label: "pay" },
           createOrder: async () => {
             setLoading(true)
             setError(null)
@@ -92,10 +85,7 @@ export default function PayPalButton({
               const res = await fetch("/api/paypal/capture-order", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  orderId: data.orderID,
-                  registration,
-                }),
+                body: JSON.stringify({ orderId: data.orderID, registration }),
               })
               const result = await res.json()
               if (!res.ok) throw new Error(result.error || "Failed to capture payment")
@@ -107,12 +97,8 @@ export default function PayPalButton({
               setLoading(false)
             }
           },
-          onCancel: () => {
-            onCancel()
-          },
-          onError: (err: Error) => {
-            setError(err.message || "PayPal error occurred")
-          },
+          onCancel: () => onCancel(),
+          onError: (err: Error) => setError(err.message || "PayPal error occurred"),
         })
         .render(buttonRef.current!)
     }
@@ -127,12 +113,12 @@ export default function PayPalButton({
   return (
     <div>
       {loading && (
-        <div className="mb-4 rounded-lg bg-blue-50 p-4 text-center text-sm text-blue-700">
-          Processing payment...
+        <div className="mb-4 rounded-lg bg-primary-light px-4 py-3 text-center text-sm font-medium text-primary">
+          Processing your payment...
         </div>
       )}
       {error && (
-        <div className="mb-4 rounded-lg bg-red-50 p-4 text-sm text-red-700">
+        <div className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
           {error}
         </div>
       )}
