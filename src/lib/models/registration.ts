@@ -1,58 +1,64 @@
-import { getDb } from "../mongodb"
+import { supabase } from "@/lib/supabase"
 
 export interface Registration {
-  _id?: string
-  firstName: string
-  lastName: string
+  id?: number
+  first_name: string
+  last_name: string
   email: string
   institution: string
   country: string
-  dietaryRestrictions: string
-  specialAccommodations: string
-  ticketType: string
-  ticketName: string
+  dietary_restrictions: string
+  special_accommodations: string
+  ticket_type: string
+  ticket_name: string
   quantity: number
   amount: number
   currency: string
-  paypalOrderId: string
-  paypalCaptureId?: string
+  paypal_order_id: string
+  paypal_capture_id?: string
   status: "pending" | "completed" | "cancelled"
-  createdAt: Date
-  updatedAt: Date
+  created_at: string
+  updated_at: string
 }
 
-export async function saveRegistration(data: Omit<Registration, "_id" | "createdAt" | "updatedAt">) {
-  const db = await getDb()
-  const collection = db.collection("registrations")
+export async function saveRegistration(data: Omit<Registration, "id" | "created_at" | "updated_at">) {
+  const { data: result, error } = await supabase
+    .from("registrations")
+    .insert([data])
+    .select("id")
+    .single()
 
-  const now = new Date()
-  const result = await collection.insertOne({
-    ...data,
-    createdAt: now,
-    updatedAt: now,
-  })
-
-  return result.insertedId.toString()
+  if (error) throw new Error(error.message)
+  return result.id.toString()
 }
 
 export async function updateRegistration(orderId: string, update: Partial<Registration>) {
-  const db = await getDb()
-  const collection = db.collection("registrations")
+  const { error } = await supabase
+    .from("registrations")
+    .update(update)
+    .eq("paypal_order_id", orderId)
 
-  await collection.updateOne(
-    { paypalOrderId: orderId },
-    { $set: { ...update, updatedAt: new Date() } }
-  )
+  if (error) throw new Error(error.message)
 }
 
 export async function getRegistrationByOrderId(orderId: string) {
-  const db = await getDb()
-  const collection = db.collection("registrations")
-  return collection.findOne({ paypalOrderId: orderId })
+  const { data, error } = await supabase
+    .from("registrations")
+    .select("*")
+    .eq("paypal_order_id", orderId)
+    .single()
+
+  if (error && error.code !== "PGRST116") throw new Error(error.message)
+  return data as Registration | null
 }
 
 export async function getAllRegistrations() {
-  const db = await getDb()
-  const collection = db.collection("registrations")
-  return collection.find({ status: "completed" }).sort({ createdAt: -1 }).toArray()
+  const { data, error } = await supabase
+    .from("registrations")
+    .select("*")
+    .eq("status", "completed")
+    .order("created_at", { ascending: false })
+
+  if (error) throw new Error(error.message)
+  return (data as Registration[]) || []
 }
