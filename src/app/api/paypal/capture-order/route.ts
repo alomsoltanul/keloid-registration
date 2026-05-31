@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
     const capturedAmount =
       capture.purchase_units?.[0]?.payments?.captures?.[0]?.amount?.value
 
-    const insertedId = await saveRegistration({
+    await saveRegistration({
       firstName: registration.firstName,
       lastName: registration.lastName,
       email: registration.email,
@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    return NextResponse.json({ success: true, id: insertedId })
+    return NextResponse.json({ success: true })
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Internal server error"
     return NextResponse.json({ error: message }, { status: 500 })

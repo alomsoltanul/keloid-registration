@@ -1,16 +1,18 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextResponse } from "next/server"
+import { cookies } from "next/headers"
 import { getAllRegistrations } from "@/lib/models/registration"
 import * as XLSX from "xlsx"
 
-function verifyAdmin(req: NextRequest): boolean {
-  const token = req.cookies.get("admin_token")?.value
+async function verifyAdmin(): Promise<boolean> {
+  const cookieStore = await cookies()
+  const token = cookieStore.get("admin_token")?.value
   const adminPassword = process.env.ADMIN_PASSWORD
   if (!adminPassword) return false
   return token === adminPassword
 }
 
-export async function GET(req: NextRequest) {
-  if (!verifyAdmin(req)) {
+export async function GET() {
+  if (!(await verifyAdmin())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
