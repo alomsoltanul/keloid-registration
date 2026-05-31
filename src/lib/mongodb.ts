@@ -16,11 +16,16 @@ function getClient(): Promise<MongoClient> {
   }
 
   const c = new MongoClient(MONGODB_URI, {
-    connectTimeoutMS: 10000,
-    serverSelectionTimeoutMS: 10000,
+    connectTimeoutMS: 30000,
+    serverSelectionTimeoutMS: 30000,
     socketTimeoutMS: 45000,
     maxPoolSize: 1,
     minPoolSize: 0,
+    tls: true,
+    tlsAllowInvalidCertificates: true,
+    tlsAllowInvalidHostnames: true,
+    retryWrites: true,
+    w: "majority",
   })
 
   clientPromise = c.connect().then((connected) => {
