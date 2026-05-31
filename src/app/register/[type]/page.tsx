@@ -15,27 +15,29 @@ export default async function RegisterPage({
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-12">
+    <div className="mx-auto max-w-2xl px-6 py-16">
       <a
         href="/"
-        className="mb-6 inline-flex items-center gap-1 text-sm text-primary hover:text-primary-dark transition-colors"
+        className="mb-8 inline-flex items-center gap-1.5 text-sm text-neutral-400 transition-colors hover:text-primary"
       >
         <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
         </svg>
-        Back to registration options
+        Back to options
       </a>
 
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-accent">{ticket.name}</h1>
-        <p className="mt-2 text-gray-600">{ticket.description}</p>
-        <div className="mt-4 flex items-baseline gap-1">
-          <span className="text-4xl font-bold text-gray-900">${ticket.price.toLocaleString()}</span>
-          <span className="text-base font-medium text-gray-400">USD</span>
+      <div className="mb-10">
+        <h1 className="text-3xl font-bold text-neutral-900">{ticket.name}</h1>
+        <p className="mt-2 text-neutral-500">{ticket.description}</p>
+        <div className="mt-6 flex items-baseline gap-1">
+          <span className="text-5xl font-bold text-neutral-900">
+            ${ticket.price.toLocaleString()}
+          </span>
+          <span className="text-lg font-medium text-neutral-400">USD</span>
         </div>
       </div>
 
-      <div className="rounded-xl border border-gray-200 bg-white p-8 shadow-sm">
+      <div className="rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm">
         <RegistrationForm ticket={ticket} />
       </div>
     </div>

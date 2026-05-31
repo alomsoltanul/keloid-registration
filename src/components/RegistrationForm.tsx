@@ -61,21 +61,21 @@ export default function RegistrationForm({ ticket }: { ticket: TicketType }) {
   if (step === "complete") {
     return (
       <div className="text-center">
-        <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-green-100">
-          <svg className="h-10 w-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-emerald-50">
+          <svg className="h-10 w-10 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="text-2xl font-bold text-gray-900">Registration Confirmed</h3>
-        <p className="mt-3 text-gray-600">
+        <h3 className="text-2xl font-bold text-neutral-900">Registration Confirmed</h3>
+        <p className="mt-3 leading-relaxed text-neutral-500">
           Your registration for the 6th International Keloid Symposium has been confirmed.
-          A confirmation email has been sent to <strong>{formData.email}</strong>.
+          We&apos;ve sent a confirmation email to <strong className="text-neutral-700">{formData.email}</strong>.
         </p>
-        <div className="mt-8 rounded-lg bg-gray-50 p-4 text-left text-sm text-gray-600">
-          <p className="font-semibold text-gray-900">Questions?</p>
-          <p className="mt-1">
+        <div className="mx-auto mt-8 max-w-sm rounded-xl bg-neutral-50 p-5 text-left text-sm">
+          <p className="font-semibold text-neutral-900">Need help?</p>
+          <p className="mt-1.5 text-neutral-500">
             Contact{" "}
-            <a href="mailto:inquiries@keloidsymposium.com" className="text-primary underline">
+            <a href="mailto:inquiries@keloidsymposium.com" className="font-medium text-primary hover:underline">
               inquiries@keloidsymposium.com
             </a>
           </p>
@@ -85,25 +85,25 @@ export default function RegistrationForm({ ticket }: { ticket: TicketType }) {
   }
 
   const inputClass =
-    "mt-1.5 block w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
-  const labelClass = "block text-sm font-medium text-gray-700"
-  const errorClass = "mt-1.5 text-xs text-red-600"
+    "mt-1.5 block w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm text-neutral-900 placeholder-neutral-400 transition-all outline-none focus:border-primary focus:ring-4 focus:ring-primary/10"
+  const labelClass = "block text-sm font-medium text-neutral-700"
+  const errorClass = "mt-1.5 text-xs text-red-500"
 
   return (
     <div>
       {step === "form" && (
-        <form onSubmit={handleFormSubmit} className="space-y-6">
-          <div className="grid gap-6 sm:grid-cols-2">
+        <form onSubmit={handleFormSubmit} className="space-y-5">
+          <div className="grid gap-5 sm:grid-cols-2">
             <div>
               <label className={labelClass}>
-                First Name <span className="text-red-500">*</span>
+                First Name <span className="text-red-400">*</span>
               </label>
               <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} className={inputClass} />
               {errors.firstName && <p className={errorClass}>{errors.firstName}</p>}
             </div>
             <div>
               <label className={labelClass}>
-                Last Name <span className="text-red-500">*</span>
+                Last Name <span className="text-red-400">*</span>
               </label>
               <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} className={inputClass} />
               {errors.lastName && <p className={errorClass}>{errors.lastName}</p>}
@@ -112,7 +112,7 @@ export default function RegistrationForm({ ticket }: { ticket: TicketType }) {
 
           <div>
             <label className={labelClass}>
-              Email Address <span className="text-red-500">*</span>
+              Email Address <span className="text-red-400">*</span>
             </label>
             <input type="email" name="email" value={formData.email} onChange={handleChange} className={inputClass} placeholder="you@institution.edu" />
             {errors.email && <p className={errorClass}>{errors.email}</p>}
@@ -120,7 +120,7 @@ export default function RegistrationForm({ ticket }: { ticket: TicketType }) {
 
           <div>
             <label className={labelClass}>
-              Institution / Organization <span className="text-red-500">*</span>
+              Institution / Organization <span className="text-red-400">*</span>
             </label>
             <input type="text" name="institution" value={formData.institution} onChange={handleChange} className={inputClass} />
             {errors.institution && <p className={errorClass}>{errors.institution}</p>}
@@ -128,15 +128,22 @@ export default function RegistrationForm({ ticket }: { ticket: TicketType }) {
 
           <div>
             <label className={labelClass}>
-              Country <span className="text-red-500">*</span>
+              Country <span className="text-red-400">*</span>
             </label>
             <input type="text" name="country" value={formData.country} onChange={handleChange} className={inputClass} />
             {errors.country && <p className={errorClass}>{errors.country}</p>}
           </div>
 
-          <div>
-            <label className={labelClass}>Dietary Restrictions</label>
-            <input type="text" name="dietaryRestrictions" value={formData.dietaryRestrictions} onChange={handleChange} className={inputClass} placeholder="None, Vegetarian, Halal, etc." />
+          <div className="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label className={labelClass}>Dietary Restrictions</label>
+              <input type="text" name="dietaryRestrictions" value={formData.dietaryRestrictions} onChange={handleChange} className={inputClass} placeholder="None, Vegetarian, etc." />
+            </div>
+            <div>
+              <label className={labelClass}>Quantity</label>
+              <input type="number" name="quantity" value={formData.quantity} onChange={handleChange} min={1} max={20} className={inputClass} />
+              {errors.quantity && <p className={errorClass}>{errors.quantity}</p>}
+            </div>
           </div>
 
           <div>
@@ -144,27 +151,23 @@ export default function RegistrationForm({ ticket }: { ticket: TicketType }) {
             <textarea name="specialAccommodations" value={formData.specialAccommodations} onChange={handleChange} rows={3} className={inputClass} />
           </div>
 
-          <div>
-            <label className={labelClass}>Quantity</label>
-            <input type="number" name="quantity" value={formData.quantity} onChange={handleChange} min={1} max={20} className="mt-1.5 block w-24 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" />
-            {errors.quantity && <p className={errorClass}>{errors.quantity}</p>}
-          </div>
-
-          <div className="rounded-xl border border-dashed border-primary/20 bg-primary-light/30 p-5">
+          <div className="rounded-2xl bg-primary/5 p-5">
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-semibold text-gray-900">{ticket.name}</p>
-                <p className="text-sm text-gray-500">
+                <p className="font-semibold text-neutral-900">{ticket.name}</p>
+                <p className="text-sm text-neutral-500">
                   ${ticket.price.toLocaleString()} &times; {formData.quantity}
                 </p>
               </div>
-              <p className="text-2xl font-bold text-gray-900">${total.toLocaleString()} <span className="text-sm font-normal text-gray-400">USD</span></p>
+              <p className="text-2xl font-bold text-neutral-900">
+                ${total.toLocaleString()} <span className="text-sm font-normal text-neutral-400">USD</span>
+              </p>
             </div>
           </div>
 
           <button
             type="submit"
-            className="w-full rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-primary-dark hover:shadow-md"
+            className="w-full rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-primary-dark hover:shadow-lg hover:shadow-primary/20 active:scale-[0.98]"
           >
             Continue to Payment
           </button>
@@ -173,14 +176,16 @@ export default function RegistrationForm({ ticket }: { ticket: TicketType }) {
 
       {step === "payment" && (
         <div>
-          <div className="mb-8 rounded-xl border border-dashed border-primary/20 bg-primary-light/30 p-5">
-            <h3 className="font-semibold text-gray-900">Order Summary</h3>
-            <p className="mt-1 text-sm text-gray-500">{ticket.name}</p>
-            <p className="mt-2 text-2xl font-bold text-gray-900">${total.toLocaleString()} <span className="text-sm font-normal text-gray-400">USD</span></p>
+          <div className="mb-8 rounded-2xl bg-primary/5 p-5">
+            <h3 className="font-semibold text-neutral-900">Order Summary</h3>
+            <p className="mt-1 text-sm text-neutral-500">{ticket.name}</p>
+            <p className="mt-2 text-2xl font-bold text-neutral-900">
+              ${total.toLocaleString()} <span className="text-sm font-normal text-neutral-400">USD</span>
+            </p>
           </div>
 
-          <div className="mb-6 rounded-lg border border-blue-100 bg-blue-50 p-4">
-            <p className="text-sm text-blue-700">
+          <div className="mb-6 rounded-xl border border-blue-100 bg-blue-50 p-4">
+            <p className="text-sm text-blue-600">
               You will be redirected to PayPal to complete your payment securely.
             </p>
           </div>

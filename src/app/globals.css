@@ -4,13 +4,12 @@
   --color-primary: #31a3dd;
   --color-primary-dark: #279be1;
   --color-primary-light: #e8f4fb;
-  --color-accent: #34495e;
-  --color-accent-dark: #2c3e50;
+  --color-accent: #1a1a2e;
+  --color-accent-dark: #16213e;
   --font-sans: "Open Sans", system-ui, -apple-system, sans-serif;
 }
 
 body {
-  color: #333;
-  background-color: #ffffff;
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAGElEQVQIW2NkYGD4z0AEYBxVSFJ4MjIxMgAANn4D/3EM7yEAAAAASUVORK5CYII=");
+  color: #1a1a2e;
+  background-color: #fafafa;
 }
